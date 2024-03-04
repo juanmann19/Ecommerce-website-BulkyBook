@@ -22,6 +22,8 @@
         <th>
             Display Order
         </th>
+        <th></th>
+        
     </tr>
     </thead>
     <tbody>
@@ -32,8 +34,18 @@
             <td>
                 @obj.DisplayOrder
             </td>
-        </tr>   
-        }
+            <td>
+                <div class="w-75 btn-group" role="group">
+                    <a asp-controller="Category" asp-action="Edit" asp-route-id="@obj.Id" class="btn btn-primary mx-2">
+                                <i class="bi bi-pencil-fill"></i>Edit
+                            </a>
+                        <a asp-controller="Category" asp-action="Delete" class="btn btn-danger mx-2">
+                            <i class="bi bi-trash-fill"></i>Delete
+                        </a>
+                </div>
+            </td>
+        </tr>    
+    }
      
     </tbody>
 </table>
