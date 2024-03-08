@@ -40,7 +40,9 @@ namespace BulkyBookWeb.Controllers
                 return NotFound();
             }
             Category? category = _dbContext.Categories.Find(id);
-            if(category == null)
+            //Category? categoryFromDB1 = _dbContext.Categories.FirstOrDefault(u=>u.Id == id);
+            //Category? categoryFromDB2 = _dbContext.Categories.Where(u=>u.Id == id).FirstOrDefault();
+            if (category == null)
             {
                 NotFound();
             }
@@ -51,11 +53,39 @@ namespace BulkyBookWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                _dbContext.Categories.Add(obj);
+                _dbContext.Categories.Update(obj);
                 _dbContext.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View();
+        }
+
+
+        public IActionResult Delete(int? id)
+        {
+            if (id == null || id == 0)
+            {
+                return NotFound();
+            }
+            Category? category = _dbContext.Categories.Find(id);
+           
+            if (category == null)
+            {
+                NotFound();
+            }
+            return View(category);
+        }
+        [HttpPost, ActionName("Delete")]
+        public IActionResult DeletePOST(int? id)
+        {
+            Category? obj = _dbContext.Categories.Find(id);
+            if (obj == null)
+            {
+                return NotFound();
+            }
+            _dbContext.Categories.Remove(obj);
+            _dbContext.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }
